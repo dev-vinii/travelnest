@@ -1,0 +1,13 @@
+package com.viniciusluna.travelnest;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class TravelnestApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
