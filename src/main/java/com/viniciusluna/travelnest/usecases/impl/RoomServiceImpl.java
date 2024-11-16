@@ -1,5 +1,6 @@
 package com.viniciusluna.travelnest.usecases.impl;
 
+import com.viniciusluna.travelnest.domain.Room;
 import com.viniciusluna.travelnest.gateways.repositories.RoomRepository;
 import com.viniciusluna.travelnest.gateways.responses.RoomResponse;
 import com.viniciusluna.travelnest.usecases.interfaces.RoomService;
@@ -16,17 +17,28 @@ public class RoomServiceImpl implements RoomService {
     private RoomRepository roomRepository;
 
     @Override
-    public List<RoomResponse> findAllRooms() {
-        var allRooms = roomRepository.findAll();
-        return allRooms.stream().map(room -> {
-            var roomResponse = new RoomResponse();
-            roomResponse.setId(room.getId().toString());
-            roomResponse.setNumber(room.getNumber());
-            roomResponse.setFloor(room.getFloor());
-            roomResponse.setRoomsCategories(room.getRoomsCategories().name());
-            roomResponse.setPricePerNight(room.getPricePerNight());
-            roomResponse.setAvailable(room.isAvailable());
-            return roomResponse;
-        }).toList();
+    public List<RoomResponse> findAllRooms(String available) {
+        List<Room> rooms;
+
+        if (available.equals("true")) {
+            rooms = roomRepository.findByAvailable(true);
+        } else if (available.equals("false")) {
+            rooms = roomRepository.findByAvailable(false);
+        } else {
+            rooms = roomRepository.findAll();
+        }
+
+        return rooms.stream().map(this::mapToRoomResponse).toList();
+    }
+
+    private RoomResponse mapToRoomResponse(Room room) {
+        var roomResponse = new RoomResponse();
+        roomResponse.setId(room.getId().toString());
+        roomResponse.setNumber(room.getNumber());
+        roomResponse.setFloor(room.getFloor());
+        roomResponse.setRoomsCategories(room.getRoomsCategories().name());
+        roomResponse.setPricePerNight(room.getPricePerNight());
+        roomResponse.setAvailable(room.isAvailable());
+        return roomResponse;
     }
 }

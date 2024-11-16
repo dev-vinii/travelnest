@@ -7,5 +7,5 @@ import java.util.List;
 
 @Service
 public interface RoomService {
-    List<RoomResponse> findAllRooms();
+    List<RoomResponse> findAllRooms(String available);
 }
