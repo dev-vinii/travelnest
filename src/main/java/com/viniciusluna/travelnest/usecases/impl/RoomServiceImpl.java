@@ -39,6 +39,8 @@ public class RoomServiceImpl implements RoomService {
         roomResponse.setRoomsCategories(room.getRoomsCategories().name());
         roomResponse.setPricePerNight(room.getPricePerNight());
         roomResponse.setAvailable(room.isAvailable());
+        roomResponse.setCreatedAt(room.getCreatedAt());
+        roomResponse.setUpdatedAt(room.getUpdatedAt());
         return roomResponse;
     }
 }

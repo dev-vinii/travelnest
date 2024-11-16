@@ -3,7 +3,11 @@ package com.viniciusluna.travelnest.domain;
 import com.viniciusluna.travelnest.domain.enums.RoomsCategories;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 
@@ -30,4 +34,12 @@ public class Room {
 
     @Column(name = "room_available", nullable = false)
     private boolean available;
+
+    @CreationTimestamp
+    @Column(name = "room_created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "room_updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 }
