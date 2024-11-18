@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
-public class RoomResponse  {
+public class RoomResponse {
     private String id;
     private int number;
     private int floor;
