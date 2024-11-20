@@ -2,12 +2,13 @@ package com.viniciusluna.travelnest.domain;
 
 import com.viniciusluna.travelnest.domain.enums.RoomsCategories;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 
@@ -29,9 +30,11 @@ public class Room {
     @Column(name = "room_category", nullable = false)
     private RoomsCategories roomsCategories;
 
-    @Column(name = "room_price_per_night", nullable = false)
-    private float pricePerNight;
 
+    @NotNull(message = "O preço por noite é obrigatório")
+    @Positive(message = "O preço por noite precisa ser maior que zero")
+    @Column(name = "room_price_per_night", nullable = false)
+    private Float pricePerNight;
     @Column(name = "room_available", nullable = false)
     private boolean available;
 

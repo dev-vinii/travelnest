@@ -2,10 +2,10 @@ package com.viniciusluna.travelnest.usecases.impl;
 
 import com.viniciusluna.travelnest.domain.Room;
 import com.viniciusluna.travelnest.gateways.repositories.RoomRepository;
+import com.viniciusluna.travelnest.gateways.requests.RoomRequest;
 import com.viniciusluna.travelnest.gateways.responses.RoomResponse;
 import com.viniciusluna.travelnest.usecases.interfaces.RoomService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +13,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class RoomServiceImpl implements RoomService {
-    @Autowired
-    private RoomRepository roomRepository;
+    private final RoomRepository roomRepository;
 
     @Override
     public List<RoomResponse> findAllRooms(String available) {
@@ -30,6 +29,20 @@ public class RoomServiceImpl implements RoomService {
 
         return rooms.stream().map(this::mapToRoomResponse).toList();
     }
+
+    @Override
+    public RoomResponse createRoom(RoomRequest roomRequest) {
+        Room room = new Room();
+        room.setNumber(roomRequest.getNumber());
+        room.setFloor(roomRequest.getFloor());
+        room.setRoomsCategories(roomRequest.getRoomsCategories());
+        room.setPricePerNight(roomRequest.getPricePerNight());
+        room.setAvailable(roomRequest.isAvailable());
+
+        Room savedRoom = roomRepository.save(room);
+        return mapToRoomResponse(savedRoom);
+    }
+
 
     private RoomResponse mapToRoomResponse(Room room) {
         var roomResponse = new RoomResponse();
