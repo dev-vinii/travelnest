@@ -5,12 +5,18 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.viniciusluna.travelnest.domain.User;
+import com.viniciusluna.travelnest.gateways.repositories.UserRepository;
+import com.viniciusluna.travelnest.gateways.responses.AuthResponse;
 import com.viniciusluna.travelnest.usecases.interfaces.TokenService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -46,6 +52,6 @@ public class TokenServiceImpl implements TokenService {
     }
 
     private Instant genExpirationDate(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusMinutes(30).toInstant(ZoneOffset.of("-03:00"));
     }
 }

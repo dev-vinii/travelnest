@@ -27,13 +27,14 @@ public class SecurityFilter extends OncePerRequestFilter {
         var token = this.recoverToken(request);
         if(token != null){
             var login = tokenService.validateToken(token);
-            UserDetails user = userRepository.findByEmail(login);
+            UserDetails user = userRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("User not found"));
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
     }
+
 
     private String recoverToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");
