@@ -2,16 +2,16 @@ version: "3.9"
 
 services:
   db:
-    container_name: travelnest_db
-    image: postgres:12
+    image: postgres
     environment:
       POSTGRES_PASSWORD: example
       POSTGRES_USER: example
-      POSTGRES_DB: example
+      POSTGRES_DB: travelnest
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql/data
 
-  volumes:
-    pgdata: {}
+volumes:
+  db_data:
+    driver: local
