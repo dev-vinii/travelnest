@@ -1,33 +1,46 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# Diretórios e arquivos gerados pelo Go
+/bin/
+/pkg/
+/vendor/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Arquivos de cache do Go
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
 
-### IntelliJ IDEA ###
+# Go workspace settings
+go.work
+go.work.sum
+
+# Configurações locais
+.env
+.env.*
+
+### Ferramentas de IDE ###
+# VS Code
+.vscode/
+*.code-workspace
+
+# IntelliJ IDEA
 .idea
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
-.vscode/
+### Sistema Operacional ###
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+desktop.ini
