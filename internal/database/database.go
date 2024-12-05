@@ -1,38 +1,25 @@
-// Preciso fazer a conexão usando postres
-
 package database
 
 import (
-	"database/sql"
-	"fmt"
+	"log"
+	"travelnest/internal/model"
 
-	_ "github.com/lib/pq"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "example"
-	password = "example"
-	dbname   = "example"
-)
-
-func ConnectDB() (*sql.DB, error) {
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
-	db, err := sql.Open("postgres", psqlInfo)
+func ConnectDatabase() (*gorm.DB, error) {
+	dsn := "host=localhost user=example password=example dbname=travelnest port=5432 sslmode=disable"
+	
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
-
-	err = db.Ping()
-	if err != nil {
-		panic(err)
+	
+	if err := db.AutoMigrate(&model.Room{}); err != nil {
+		log.Fatalf("Error to run migration: %v", err)
 	}
-
-	fmt.Println("Connected to " + dbname)
-
+	
 	return db, nil
 }

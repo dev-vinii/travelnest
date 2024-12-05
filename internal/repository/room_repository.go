@@ -1,46 +1,27 @@
 package repository
 
 import (
-	"database/sql"
-	"fmt"
 	"travelnest/internal/model"
+
+	"gorm.io/gorm"
 )
 
 type RoomRepository struct {
-	connection *sql.DB
+	connection *gorm.DB
 }
 
-func NewRoomRepository(connection *sql.DB) RoomRepository {
+func NewRoomRepository(connection *gorm.DB) RoomRepository {
 	return RoomRepository{
 		connection: connection,
 	}
 }
 
-func (rr * RoomRepository) GetRooms() ([]model.Room, error) {
-	query := "SELECT * FROM rooms"
-	rows, err := rr.connection.Query(query)
+func (rr *RoomRepository) GetRooms() ([]model.Room, error) {
+	var rooms []model.Room
 	
-	if err != nil {
-		fmt.Println(err)
-		return []model.Room{}, err
+	if err := rr.connection.Find(&rooms).Error; err != nil {
+		return nil, err
 	}
 	
-	var roomList []model.Room
-
-	for rows.Next() {
-		var room model.Room
-		err := rows.Scan(&room.ID, &room.Name, &room.Description, &room.Price, &room.Status)
-		if err != nil {
-			fmt.Println(err)
-			return []model.Room{}, err
-		}
-		roomList = append(roomList, room)
-	}
-
-	if err = rows.Err(); err != nil {
-		fmt.Println(err)
-		return []model.Room{}, err
-	}
-
-	return roomList, nil
+	return rooms, nil
 }

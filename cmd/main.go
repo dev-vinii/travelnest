@@ -12,7 +12,8 @@ import (
 func main() {
 		server := gin.Default()
 
-		dbConnection, err := database.ConnectDB()
+		dbConnection, err := database.ConnectDatabase()
+		
 		if(err != nil) {
 			panic(err)
 		}
