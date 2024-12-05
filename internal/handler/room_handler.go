@@ -1,4 +1,4 @@
-package controller
+package handler
 
 import (
 	usecase "travelnest/internal/use-case"
@@ -6,17 +6,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type RoomController struct {
+type RoomHandler struct {
 	roomUseCase usecase.RoomUseCase
 }
 
-func NewRoomController(usecase usecase.RoomUseCase) RoomController {
-	return RoomController{
+func NewRoomHandler(usecase usecase.RoomUseCase) RoomHandler {
+	return RoomHandler{
 		roomUseCase: usecase,
 	}
 }
 
-func (r *RoomController) GetRooms(c *gin.Context) {
+func (r *RoomHandler) GetRooms(c *gin.Context) {
 	rooms, err := r.roomUseCase.GetRooms()
 	if err != nil {
 		c.JSON(500, gin.H{

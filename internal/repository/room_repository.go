@@ -19,7 +19,7 @@ func NewRoomRepository(connection *gorm.DB) RoomRepository {
 func (rr *RoomRepository) GetRooms() ([]model.Room, error) {
 	var rooms []model.Room
 	
-	if err := rr.connection.Find(&rooms).Error; err != nil {
+	if err := rr.connection.Where("deleted_at IS NULL").Find(&rooms).Error; err != nil {
 		return nil, err
 	}
 	

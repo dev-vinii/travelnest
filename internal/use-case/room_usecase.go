@@ -6,15 +6,15 @@ import (
 )
 
 type RoomUseCase struct {
-	reposotory repository.RoomRepository
+	repository repository.RoomRepository
 }
 
 func NewRoomUseCase(repo repository.RoomRepository) RoomUseCase {
 	return RoomUseCase{
-		reposotory: repo,
+		repository: repo,
 	}
 }
 
 func (r *RoomUseCase) GetRooms() ([]model.Room, error) {
-	return r.reposotory.GetRooms()
+	return r.repository.GetRooms()
 }
