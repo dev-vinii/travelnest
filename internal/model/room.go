@@ -9,17 +9,20 @@ import (
 type Room struct {
 	ID uuid.UUID `json:"id"`
 	Name string    `json:"name"`
-	Description string    `json:"description"`
-	Status enums.Status    `json:"status"`
+	Number int    `json:"number"`
+	Category enums.RoomCategory    `json:"category"`
 	Price float64   `json:"price"`
+	IsAvailable bool `json:"is_available"`
 }
 
 
-func NewRoom(name string, description string, status enums.Status) *Room {
-	return &Room{
-		ID:          uuid.New(),
-		Name:        name,
-		Description: description,
-		Status:      status,
+func NewRoom(name string, number int, category enums.RoomCategory, price float64, is_available bool) Room {
+	return Room{
+		ID: uuid.New(),
+		Name: name,
+		Number: number,
+		Category: category,
+		Price: price,
+		IsAvailable: is_available,
 	}
 }
