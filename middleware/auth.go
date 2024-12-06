@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"log"
 	"net/http"
 	"strings"
 
@@ -9,6 +10,7 @@ import (
 )
 
 func RoleAuthorization(jwtKey []byte, allowedRoles ...string) gin.HandlerFunc {
+	log.Println("RoleAuthorization middleware")
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
 		if !strings.HasPrefix(authHeader, "Bearer ") {
@@ -25,14 +27,14 @@ func RoleAuthorization(jwtKey []byte, allowedRoles ...string) gin.HandlerFunc {
 			}
 			return jwtKey, nil
 		})
-
 		if err != nil || !token.Valid {
+			log.Println(err)
+			log.Println(token)
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "unauthorized"})
 			c.Abort()
 			return
 		}
 
-		// Extrair a claim da role
 		claims, ok := token.Claims.(jwt.MapClaims)
 		if !ok || claims["role"] == nil {
 			c.JSON(http.StatusForbidden, gin.H{"error": "forbidden"})

@@ -17,7 +17,6 @@ go.work.sum
 
 # Configurações locais
 .env
-.env.*
 
 ### Ferramentas de IDE ###
 # VS Code

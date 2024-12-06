@@ -1,7 +1,7 @@
 package model
 
 import (
-	"travelnest/internal/enums"
+	"travelnest/enums"
 
 	"github.com/google/uuid"
 )

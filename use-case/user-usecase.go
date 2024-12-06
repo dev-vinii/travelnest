@@ -3,8 +3,8 @@ package usecase
 import (
 	"errors"
 	"time"
-	"travelnest/internal/repository"
-	"travelnest/internal/utils"
+	"travelnest/repository"
+	"travelnest/utils"
 
 	"github.com/golang-jwt/jwt/v4"
 )

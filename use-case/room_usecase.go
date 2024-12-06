@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"travelnest/internal/model"
-	"travelnest/internal/repository"
+	"travelnest/model"
+	"travelnest/repository"
 )
 
 type RoomUseCase struct {

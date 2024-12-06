@@ -2,7 +2,7 @@ package database
 
 import (
 	"log"
-	"travelnest/internal/model"
+	"travelnest/model"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -18,6 +18,10 @@ func ConnectDatabase() (*gorm.DB, error) {
 	}
 	
 	if err := db.AutoMigrate(&model.Room{}); err != nil {
+		log.Fatalf("Error to run migration: %v", err)
+	}
+	
+	if err := db.AutoMigrate(&model.User{}); err != nil {
 		log.Fatalf("Error to run migration: %v", err)
 	}
 	

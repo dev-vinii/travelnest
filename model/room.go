@@ -2,7 +2,7 @@ package model
 
 import (
 	"time"
-	"travelnest/internal/enums"
+	"travelnest/enums"
 
 	"github.com/google/uuid"
 )

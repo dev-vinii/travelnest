@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"travelnest/internal/model"
+	"travelnest/model"
 
 	"gorm.io/gorm"
 )

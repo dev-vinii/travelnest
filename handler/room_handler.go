@@ -1,7 +1,7 @@
 package handler
 
 import (
-	usecase "travelnest/internal/use-case"
+	usecase "travelnest/use-case"
 
 	"github.com/gin-gonic/gin"
 )
