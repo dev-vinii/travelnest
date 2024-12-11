@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"errors"
+	"os"
 	"time"
 	"travelnest/repository"
 	"travelnest/utils"
@@ -14,10 +15,10 @@ type UserUseCase struct {
     JWTKey   []byte
 }
 
-func NewUserUseCase(repo repository.UserRepository, jwtKey []byte) UserUseCase {
+func NewUserUseCase(repo repository.UserRepository) UserUseCase {
 		return UserUseCase{
 				UserRepo: repo,
-				JWTKey:   jwtKey,
+				JWTKey:   []byte(os.Getenv("JWT_SECRET_KEY")),
 		}
 }
 
