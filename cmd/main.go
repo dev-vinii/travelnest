@@ -23,7 +23,7 @@ func main() {
 	userRepository := repository.NewUserRepository(dbConnection)
 
 	roomUseCase := usecase.NewRoomUseCase(roomRepository)
-	userUseCase := usecase.NewUserUseCase(userRepository, []byte("secret"))
+	userUseCase := usecase.NewUserUseCase(userRepository)
 
 	roomHandler := handler.NewRoomHandler(roomUseCase)
 	userHandler := handler.NewUserHandler(userUseCase)

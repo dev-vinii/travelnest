@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"errors"
+	"log"
 	"os"
 	"time"
 	"travelnest/repository"
@@ -12,13 +13,14 @@ import (
 
 type UserUseCase struct {
     UserRepo repository.UserRepository
-    JWTKey   []byte
+    JWTKey   string
 }
 
 func NewUserUseCase(repo repository.UserRepository) UserUseCase {
+    utils.LoadEnv()
 		return UserUseCase{
 				UserRepo: repo,
-				JWTKey:   []byte(os.Getenv("JWT_SECRET_KEY")),
+				JWTKey:   (os.Getenv("JWT_SECRET_KEY")),
 		}
 }
 
@@ -32,7 +34,10 @@ func (u *UserUseCase) Login(username, password string) (string, error) {
         "id":  user.ID,
         "role": user.Role,
         "exp": time.Now().Add(30 * time.Minute).Unix(),
+        
     })
+    log.Println("KEY: ", u.JWTKey)
+    jwtKeyBytes := []byte(u.JWTKey)
 
-    return token.SignedString(u.JWTKey)
+    return token.SignedString(jwtKeyBytes)
 }
